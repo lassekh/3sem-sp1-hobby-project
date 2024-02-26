@@ -1,5 +1,9 @@
 package config;
 
+import entities.Account;
+import entities.AccountDetail;
+import entities.City;
+import entities.Hobby;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -75,9 +79,10 @@ public class HibernateConfig {
 
     private static void getAnnotationConfiguration(Configuration configuration) {
         //configuration.addAnnotatedClass(example.class);
-
-
-
+        configuration.addAnnotatedClass(Account.class);
+        configuration.addAnnotatedClass(AccountDetail.class);
+        configuration.addAnnotatedClass(City.class);
+        configuration.addAnnotatedClass(Hobby.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {
@@ -85,7 +90,7 @@ public class HibernateConfig {
         return entityManagerFactory;
     }
 
-    public static EntityManagerFactory getEntityManagerFactoryCongfigTest() {
+    public static EntityManagerFactory getEntityManagerFactoryConfigTest() {
         if (entityManagerFactory == null) entityManagerFactory = setupHibernateConfigurationForTesting();
         return entityManagerFactory;
     }
