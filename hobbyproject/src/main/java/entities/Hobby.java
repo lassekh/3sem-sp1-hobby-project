@@ -25,7 +25,8 @@ public class Hobby {
     @Column (name = "wiki_link")
     private String wikiLink;
     private String category;
-    private String type;
+    @Enumerated (EnumType.STRING)
+    private Type type;
 
     @ManyToMany
     @JoinTable(
@@ -34,5 +35,11 @@ public class Hobby {
             inverseJoinColumns = @JoinColumn(name = "hobby_id")
     )
     private Set<Account> accountSet = new HashSet<>();
+
+    public enum Type{
+        OUTDOOR,
+        INDOOR
+
+    }
 
 }

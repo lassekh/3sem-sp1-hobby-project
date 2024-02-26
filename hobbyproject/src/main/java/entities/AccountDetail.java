@@ -31,6 +31,7 @@ public class AccountDetail
     @OneToOne
     @MapsId
     private Account account;
+    private LocalDate updatedAt;
 
     public AccountDetail(int mobile,LocalDate dateOfBirth, int zipcode, String address)
     {
@@ -44,6 +45,13 @@ public class AccountDetail
     private void prePersist()
     {
         this.zipcode = city.getZipcode();
+        this.updatedAt = LocalDate.now();
+    }
+
+    @PreUpdate
+    private void preUpdate()
+    {
+        this.updatedAt = LocalDate.now();
     }
 
 
