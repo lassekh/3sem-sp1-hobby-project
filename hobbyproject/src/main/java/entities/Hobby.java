@@ -25,6 +25,7 @@ public class Hobby {
     @Column (name = "wiki_link")
     private String wikiLink;
     private String category;
+
     @Enumerated (EnumType.STRING)
     private Type type;
 
