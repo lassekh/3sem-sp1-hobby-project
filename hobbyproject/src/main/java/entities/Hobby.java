@@ -37,6 +37,13 @@ public class Hobby {
     )
     private Set<Account> accountSet = new HashSet<>();
 
+    public Hobby(String name, String wikiLink, String category, Type type) {
+        this.name = name;
+        this.wikiLink = wikiLink;
+        this.category = category;
+        this.type = type;
+    }
+
     public enum Type{
         OUTDOOR,
         INDOOR
