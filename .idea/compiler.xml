@@ -10,5 +10,8 @@
         <module name="hobbyproject" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="sem-sp1-hobby-project" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

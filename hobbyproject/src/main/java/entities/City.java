@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @Entity
 @NoArgsConstructor
+@ToString
 @AllArgsConstructor
 @Table(name = "city")
 public class City {
