@@ -1,10 +1,18 @@
 package dto;
 
+import entities.Hobby;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
+import lombok.Setter;
+import lombok.ToString;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
 @Getter
 public class AccountDTO {
     private int id;
@@ -15,6 +23,7 @@ public class AccountDTO {
     private int zipcode;
     private String cityName;
     private String address;
+    private Set<Hobby> hobbies;
     private String hobbyName;
     private String category;
     private String type;

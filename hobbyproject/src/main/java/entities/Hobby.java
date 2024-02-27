@@ -1,10 +1,7 @@
 package entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hobby")
+@ToString
 public class Hobby {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,4 +48,10 @@ public class Hobby {
 
     }
 
+    public Hobby(String name, String wikiLink, String category, Type type) {
+        this.name = name;
+        this.wikiLink = wikiLink;
+        this.category = category;
+        this.type = type;
+    }
 }
