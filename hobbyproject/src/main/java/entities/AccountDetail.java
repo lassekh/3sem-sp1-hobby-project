@@ -12,13 +12,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "account_details")
-public class AccountDetail
-{
+public class AccountDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    private int mobile;
+    private int privateMobile;
+    private int workMobile;
     private LocalDate dateOfBirth;
     @ManyToOne
     @Transient
@@ -31,23 +31,27 @@ public class AccountDetail
     private Account account;
     private LocalDate updatedAt;
 
-    public AccountDetail(int mobile,LocalDate dateOfBirth, String address)
-    {
-        this.mobile = mobile;
+    public AccountDetail(int privateMobile, LocalDate dateOfBirth, String address) {
+        this.privateMobile = privateMobile;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+    }
+
+    public AccountDetail(int privateMobile, int workMobile, LocalDate dateOfBirth, String address) {
+        this.privateMobile = privateMobile;
+        this.workMobile = workMobile;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
     }
 
     @PrePersist
-    private void prePersist()
-    {
+    private void prePersist() {
         this.zipcode = city.getZipcode();
         this.updatedAt = LocalDate.now();
     }
 
     @PreUpdate
-    private void preUpdate()
-    {
+    private void preUpdate() {
         this.updatedAt = LocalDate.now();
     }
 

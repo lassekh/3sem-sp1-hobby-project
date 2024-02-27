@@ -17,7 +17,8 @@ public class AccountDTO {
     private int id;
     private String fullName;
     private LocalDate dateOfBirth;
-    private int mobile;
+    private int privateMobile;
+    private int workMobile;
     private LocalDate updatedAt;
     private int zipcode;
     private String cityName;
@@ -28,7 +29,7 @@ public class AccountDTO {
         this.id = id;
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
-        this.mobile = mobile;
+        this.privateMobile = mobile;
         this.updatedAt = updatedAt;
         this.zipcode = zipcode;
         this.cityName = cityName;
