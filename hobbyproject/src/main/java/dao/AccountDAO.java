@@ -41,7 +41,7 @@ public class AccountDAO extends CRUDDao{
                     dtos.get(0).getAccount().getId(),
                     dtos.get(0).getAccount().getFullName(),
                     dtos.get(0).getAccountDetail().getDateOfBirth(),
-                    dtos.get(0).getAccountDetail().getMobile(),
+                    dtos.get(0).getAccountDetail().getPrivateMobile(),
                     dtos.get(0).getAccountDetail().getZipcode(),
                     dtos.get(0).getAccountDetail().getCity() != null ? dtos.get(0).getAccountDetail().getCity().getName() : null,
                     dtos.get(0).getAccountDetail().getAddress(),
