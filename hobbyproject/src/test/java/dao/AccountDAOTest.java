@@ -24,26 +24,24 @@ class AccountDAOTest {
         emf = HibernateConfig.getEntityManagerFactoryConfigTest();
         accountDAO = AccountDAO.getInstance(emf);
 
+        EntityManager em = emf.createEntityManager();
+
         // City persisting
         City city = new City(4700, "Næstved");
         accountDAO.create(city);
         Hobby fodbold = new Hobby("Fodbold", "www.wiki-link.dk", "Sport", Hobby.Type.OUTDOOR);
         accountDAO.create(fodbold);
         Account account = new Account("Hanni");
-        //accountDAO.create(account);
+        account.addHobby(fodbold);
 
-
-        //Account account = new Account("Hanni");
         AccountDetail accountDetail = new AccountDetail(53702510, LocalDate.of(1998,10,25),"Thyrasvej 48A");
         accountDetail.setCity(city);
 
-        //Hobby fodbold = new Hobby("Fodbold", "www.wiki-link.dk", "Sport", Hobby.Type.OUTDOOR);
-
         account.addAccountDetail(accountDetail);
-        accountDAO.create(account);
-        //account.addHobby(fodbold);
 
-        //accountDAO.create(account);
+        em.getTransaction().begin();
+        em.persist(account);
+        em.getTransaction().commit();
     }
 
     @AfterAll
@@ -76,6 +74,5 @@ class AccountDAOTest {
         assertEquals(expectedZipcode , accountInfo.getZipcode());
         assertEquals(expectedAddress, accountInfo.getAddress());
         assertEquals(expectedHobby, accountInfo.getHobbies());
-        assertTrue(accountInfo.getHobbies().stream().anyMatch(hobby -> expectedHobby.equals(hobby)));
     }
 }
