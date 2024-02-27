@@ -69,12 +69,28 @@ public class AccountDetailDAO extends CRUDDao {
 
     // US-2: As a user I want to get all phone numbers from a given person.
 
-    public List<Integer> GetAllPhoneNumbersFromGivenPerson(String name) {
-        try (EntityManager em = emf.createEntityManager()) {
+    public List<Integer> getAllPhoneNumbersFromGivenPerson(String name)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
             Query query = em.createQuery("SELECT ad.mobile FROM Account a LEFT JOIN AccountDetail ad on a.id = ad.id WHERE a.fullName = :first");
             query.setParameter("first", name);
             return query.getResultList();
         }
     }
 
+    // US-6: As a user I want to get all persons living in a given city (i.e. 2800 Lyngby).
+
+    public List<Account> getAccountsInCity(int zipcode)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            Query query = em.createQuery("SELECT a FROM Account a " +
+                    "JOIN AccountDetail ad ON a.id = ad.id " +
+                    "JOIN City c ON ad.zipcode = c.zipcode " +
+                    "WHERE c.zipcode = :zipcode", Account.class);
+            query.setParameter("zipcode", zipcode);
+            return query.getResultList();
+        }
+    }
 }
