@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import config.HibernateConfig;
 
 public abstract class CRUDDao {
-    private static EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
+    static EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
 
         //CREATE
         public <T> void create (T t){
