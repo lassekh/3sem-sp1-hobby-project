@@ -17,8 +17,9 @@ public class Main {
         //dao.create(account);
 
         CityDAO cityDAO = CityDAO.getInstance(emf);
-        CityDTO[] cityDTO = cityDAO.getCityZip("https://api.dataforsyningen.dk/postnumre");
-        Arrays.stream(cityDTO).forEach(System.out::println);
+        CityDTO cityDTO = cityDAO.getCityZip("https://api.dataforsyningen.dk/postnumre/1050");
+        //Arrays.stream(cityDTO).forEach(System.out::println);
+        System.out.println(cityDTO);
 
     }
 }
