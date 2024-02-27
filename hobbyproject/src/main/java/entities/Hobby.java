@@ -48,10 +48,4 @@ public class Hobby {
 
     }
 
-    public Hobby(String name, String wikiLink, String category, Type type) {
-        this.name = name;
-        this.wikiLink = wikiLink;
-        this.category = category;
-        this.type = type;
-    }
 }

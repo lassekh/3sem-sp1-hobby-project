@@ -13,7 +13,6 @@ import java.util.Set;
 @Setter
 @ToString
 @AllArgsConstructor
-@Getter
 public class AccountDTO {
     private int id;
     private String fullName;
@@ -39,22 +38,5 @@ public class AccountDTO {
         this.address = address;
         this.hobbyName = hobbyName;
         this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "AccountDTO{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", mobile=" + mobile +
-                ", updatedAt=" + updatedAt +
-                ", zipcode=" + zipcode +
-                ", cityName='" + cityName + '\'' +
-                ", address='" + address + '\'' +
-                ", hobbyName='" + hobbyName + '\'' +
-                ", category='" + category + '\'' +
-                ", type='" + type + '\'' +
-                '}';
     }
 }
