@@ -11,6 +11,5 @@ public class Main {
         Account account = new Account("Lasse");
         AccountDAO dao = new AccountDAO();
         //dao.create(account);
-
     }
 }
