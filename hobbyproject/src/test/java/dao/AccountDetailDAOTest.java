@@ -26,7 +26,7 @@ class AccountDetailDAOTest {
         City city = new City(2800, "Kongens Lyngby");
         accountDetailDAO.create(city);
         Account accountAhmad = new Account("Ahmad");
-        AccountDetail accountDetailAhmad = new AccountDetail(123, LocalDate.of(1998, 3, 6), 2800, "Boulevard");
+        AccountDetail accountDetailAhmad = new AccountDetail(123, LocalDate.of(1998, 3, 6), "Boulevard");
         accountAhmad.setAccountDetail(accountDetailAhmad);
         Hobby hobby = new Hobby("Volleyball", "wiki@test.dk", "General", Hobby.Type.INDOOR);
         accountAhmad.addHobby(hobby);

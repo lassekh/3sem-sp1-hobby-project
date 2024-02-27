@@ -2,6 +2,7 @@ package dao;
 
 import dto.AccAccDetHobbyDTO;
 import dto.AccountDTOYoussef;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,6 +10,16 @@ import java.util.List;
 import java.util.Set;
 
 public class AccountDAO extends CRUDDao{
+    private static EntityManagerFactory emf;
+    private static AccountDAO instance;
+
+    public static AccountDAO getInstance(EntityManagerFactory _emf) {
+        if (instance == null) {
+            emf = _emf;
+            instance = new AccountDAO();
+        }
+        return instance;
+    }
 
     //[US-8] As a user I want to get all the information about
     //a person (address, hobbies etc.) given a phone number
