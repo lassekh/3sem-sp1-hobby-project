@@ -23,4 +23,15 @@ public class AccountDTO {
     private String cityName;
     private String address;
     private Set<Hobby> hobbies;
+
+    public AccountDTO(int id, String fullName, LocalDate dateOfBirth, int mobile, LocalDate updatedAt, int zipcode, String cityName, String address) {
+        this.id = id;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+        this.mobile = mobile;
+        this.updatedAt = updatedAt;
+        this.zipcode = zipcode;
+        this.cityName = cityName;
+        this.address = address;
+    }
 }

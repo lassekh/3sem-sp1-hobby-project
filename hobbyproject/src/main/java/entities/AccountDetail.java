@@ -31,11 +31,10 @@ public class AccountDetail
     private Account account;
     private LocalDate updatedAt;
 
-    public AccountDetail(int mobile,LocalDate dateOfBirth, int zipcode, String address)
+    public AccountDetail(int mobile,LocalDate dateOfBirth, String address)
     {
         this.mobile = mobile;
         this.dateOfBirth = dateOfBirth;
-        this.zipcode = zipcode;
         this.address = address;
     }
 

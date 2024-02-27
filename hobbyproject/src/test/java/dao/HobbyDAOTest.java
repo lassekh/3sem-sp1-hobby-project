@@ -43,7 +43,7 @@ class HobbyDAOTest {
         a3 = new Account("Ahmad");
         a4 = new Account("Hanni");
 
-        ad1 = new AccountDetail(30117195, LocalDate.of(1990,07,12),3400, "Østervang");
+        ad1 = new AccountDetail(30117195, LocalDate.of(1990,07,12), "Østervang");
 
         City city = new City(3400, "Hillerød");
 
