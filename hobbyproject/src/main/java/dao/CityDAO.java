@@ -2,8 +2,7 @@ package dao;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import dto.CityDTO;
 import entities.City;
 import jakarta.persistence.EntityManager;
@@ -13,8 +12,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class CityDAO {
@@ -37,34 +43,35 @@ public class CityDAO {
             return query.getResultList();
         }
     }
-    public String getResponseBody(String url)
-    {
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-        Request request = new Request.Builder()
-                .url(url)
-                //.get()
-                //.addHeader("accept","application/json")
-                //.addHeader("token","Bearer e7724d456c5758a7efe5928853f64ba4")
-                .method("GET",null)
-                .build();
-        try
-        {
-            Response response = client.newCall(request).execute();
-            System.out.println(response);
-            return response.body().string();
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e.getMessage(),e);
+    public String getResponseBody(String url) throws IOException {
+        //with Apache HttpClient
+        //Create a request
+        HttpGet request = new HttpGet(url);
+        //try with ressources
+        try(CloseableHttpClient httpClient = HttpClients.createDefault();
+            CloseableHttpResponse response = httpClient.execute(request);) {
+
+            HttpEntity entity = response.getEntity();
+            String result = null;
+            if (entity != null) {
+                    // return it as a String
+                    result = EntityUtils.toString(entity);
+                    //System.out.println(result);
+            }
+            return result;
         }
     }
 
-    public CityDTO getCityZip(String url)
-    {
-        //String url = "https://api.dataforsyningen.dk/postnumre?token=e7724d456c5758a7efe5928853f64ba4";
-        String response = getResponseBody(url);
-        //JsonArray jsonArray = gson.fromJson(response, JsonArray.class);
-        return gson.fromJson(response, CityDTO.class);
+
+
+    public CityDTO[] getCityZip(String url) {
+        String response = null;
+        try {
+            response = getResponseBody(url);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return gson.fromJson(response, CityDTO[].class);
     }
 
 }
