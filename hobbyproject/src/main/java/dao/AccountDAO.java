@@ -39,9 +39,12 @@ public class AccountDAO extends CRUDDao{
                             "WHERE ad.privateMobile = :phoneNumber", AccAccDetHobbyDTO.class);
             query.setParameter("phoneNumber", phoneNumber);
 
-            //Benytter resultlist da en person kan have flere hobbier. For hver hobby vil der være en account
+            //Benytter result list da en person kan have flere hobbyer. For hver hobby vil der være en account
             List<AccAccDetHobbyDTO> dtos = query.getResultList();
-            if (dtos.isEmpty()) return null;
+            if (dtos.isEmpty()){
+                FileWriter.storeNegative("Phone number does not exist");
+                return null;
+            }
 
             //Da en person kan have flere hobbier gennemgår vi listen og sætter unikke hobbier i et Set.
             Set<String> hobbies = new HashSet<>();
@@ -52,9 +55,8 @@ public class AccountDAO extends CRUDDao{
             }
 
                 //instantierer en ny AccountDTOYoussef via data fra
-
-
-            AccountDTOYoussef dto = new AccountDTOYoussef(
+            FileWriter.storePositive("information retrieved - By mobile Number - " + phoneNumber);
+            return new AccountDTOYoussef(
                     dtos.get(0).getAccount().getId(),
                     dtos.get(0).getAccount().getFullName(),
                     dtos.get(0).getAccountDetail().getDateOfBirth(),
@@ -64,13 +66,6 @@ public class AccountDAO extends CRUDDao{
                     dtos.get(0).getAccountDetail().getAddress(),
                     //da vores DTO tager en liste, konverteres settet til en liste.
                     new ArrayList<>(hobbies));
-
-            if(dto.getFullName() == null){
-                FileWriter.storeNegative("Phone number does not exist");
-                return dto;
-            }
-            FileWriter.storePositive("information retrieved - By mobile Number - " + phoneNumber);
-            return dto;
         }
     }
 }

@@ -36,7 +36,7 @@ public class Main {
 
         AccountDAO dao = AccountDAO.getInstance(emf);
 
-        System.out.println(dao.getAccountInfoByPhoneNumber(0));
+        System.out.println(dao.getAccountInfoByPhoneNumber(2));
 
     }
 }
