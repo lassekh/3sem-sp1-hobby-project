@@ -10,13 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 public class AccountDAO extends CRUDDao{
-
     private static EntityManagerFactory emf;
-
     private static AccountDAO instance;
 
-    public static AccountDAO getInstance(EntityManagerFactory _emf){
-        if(instance == null){
+    public static AccountDAO getInstance(EntityManagerFactory _emf) {
+        if (instance == null) {
             emf = _emf;
             instance = new AccountDAO();
         }
