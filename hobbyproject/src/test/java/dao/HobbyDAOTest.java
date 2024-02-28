@@ -14,13 +14,14 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HobbyDAOTest {
 
     private static EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfigTest();
-    private static HobbyDAO dao = new HobbyDAO();
+    private static HobbyDAO hobbyDAO;
     private static AccountDAO accountDao = new AccountDAO();
 
     private static Account a1;
@@ -33,11 +34,16 @@ class HobbyDAOTest {
     private static AccountDetail ad3;
     private static AccountDetail ad4;
 
-    private static Hobby h;
+    private static Hobby h1;
+    private static Hobby h2;
+    private static Hobby h3;
+    private static Hobby h4;
 
 
     @BeforeAll
     static void beforeAll() {
+        hobbyDAO = HobbyDAO.getInstance(emf);
+
         a1 = new Account("Youssef");
         a2 = new Account("Lasse");
         a3 = new Account("Ahmad");
@@ -49,16 +55,19 @@ class HobbyDAOTest {
 
         ad1.setCity(city);
 
-        h = new Hobby("Fitness", "www.wiki.dk", "Fitness", Hobby.Type.INDOOR);
+        h1 = new Hobby("Fitness", "www.wiki.dk", "Fitness", Hobby.Type.INDOOR);
+        h2 = new Hobby("Boxing", "www.wiki.dk", "Fitness", Hobby.Type.INDOOR);
+        h3 = new Hobby("Running", "www.wiki.dk", "Fitness", Hobby.Type.OUTDOOR);
+        h4 = new Hobby("Fitness", "www.wiki.dk", "Fitness", Hobby.Type.INDOOR);
     }
 
     @BeforeEach
     void setUp() {
 
-        a1.addHobby(h);
-        a2.addHobby(h);
-        a3.addHobby(h);
-        a4.addHobby(h);
+        a1.addHobby(h1);
+        a2.addHobby(h2);
+        a3.addHobby(h3);
+        a4.addHobby(h4);
 
         a1.addAccountDetail(ad1);
 
@@ -80,7 +89,7 @@ class HobbyDAOTest {
     @Test
     void getNumberOfPeopleGivenHobby() {
 
-        int actual = dao.getNumberOfPeopleGivenHobby("Fitness");
+        int actual = hobbyDAO.getNumberOfPeopleGivenHobby("Fitness");
         assertEquals(4, actual);
 
     }
@@ -95,4 +104,16 @@ class HobbyDAOTest {
 
     }
 
+    @Test
+    void getAllAccountsWithHobby() {
+        //given
+        int expectedSize = 2;
+        String expectedName = "Youssef";
+        //when
+        List<Account> actual = hobbyDAO.getAllAccountsWithHobby("Fitness");
+        //then
+        assertNotNull(actual);
+        assertEquals(expectedSize,actual.size());
+        assertTrue(actual.stream().anyMatch(account -> expectedName.equals(account.getFullName())));
+    }
 }
