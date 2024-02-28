@@ -6,10 +6,9 @@ import entities.City;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AccountDetailDAO extends CRUDDao {
@@ -88,7 +87,7 @@ public class AccountDetailDAO extends CRUDDao {
         }
     }
 
-    // EN EKSTRA METODE
+    // US-11: As a user I want to get all persons living in a given city by name.
     public List<Account> getPersonsInASpecifikCityByName(String cityName) {
         try (EntityManager em = emf.createEntityManager()) {
 
@@ -103,5 +102,22 @@ public class AccountDetailDAO extends CRUDDao {
             // Udfør forespørgslen og få resultatet som en liste af Account-objekter
             return query.getResultList();
         }
+    }
+
+    // US-10: As a user I want to see all people on an address with a count on how many hobbies each person has (Use Java Streams for this one)
+    public List<Account> getPersonsByAddress(String address)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            TypedQuery<Account> query = em.createQuery("SELECT a FROM Account a WHERE a.accountDetail.address = :address", Account.class);
+            query.setParameter("address", address);
+            return query.getResultList();
+        }
+    }
+
+    public Map<String, Integer> getCountOfHobbiesByAddress(List<Account> accounts)
+    {
+        Map<String, Integer> hobbycounts = accounts.stream().collect(Collectors.toMap(Account::getFullName, account -> account.getHobbies().size()));
+        return hobbycounts;
     }
 }

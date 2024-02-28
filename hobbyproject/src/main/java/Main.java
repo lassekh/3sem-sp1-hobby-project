@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
 
@@ -16,39 +17,47 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // NIKS PILLE
+//        // NIKS PILLE
+//        emf = HibernateConfig.getEntityManagerFactoryConfig();
+//        accountDetailDAO = AccountDetailDAO.getInstance(emf);
+//
+//        EntityManager em = emf.createEntityManager();
+//
+//        // Creating/Persisting the city
+//        City city = new City(2800, "Kongens Lyngby");
+//        accountDetailDAO.create(city);
+//
+//        // Creating/Persisting the hobby
+//        Hobby hobby1 = new Hobby("Volleyball", "wiki@test.dk", "General", Hobby.Type.INDOOR);
+//        Hobby hobby2 = new Hobby("Fodbold", "wiki@test.dk", "General", Hobby.Type.OUTDOOR);
+//
+//        //em.persist(hobby1);
+//        //em.persist(hobby2);
+//
+//        Account accountAhmad = new Account("Ahmad A");
+//        accountAhmad.addHobby(hobby1);
+//        accountAhmad.addHobby(hobby2);
+//
+//        AccountDetail accountDetailAhmad = new AccountDetail(123, LocalDate.of(1998, 3, 6), "Boulevard");
+//        accountDetailAhmad.setCity(city);
+//        accountAhmad.addAccountDetail(accountDetailAhmad);
+//
+//        em.getTransaction().begin();
+//        em.persist(accountAhmad);
+//        em.getTransaction().commit();
+//
+//        Account foundAccount = em.find(Account.class, 1);
+//        System.out.println(foundAccount.getFullName());
+//        System.out.println(foundAccount.getHobbies());
+//
+//         //NIKS PILLE
+
+
         emf = HibernateConfig.getEntityManagerFactoryConfig();
         accountDetailDAO = AccountDetailDAO.getInstance(emf);
+        List<Account> a = accountDetailDAO.getPersonsByAddress("Boulevard");
 
-        EntityManager em = emf.createEntityManager();
+        System.out.println(accountDetailDAO.getCountOfHobbiesByAddress(a));
 
-        // Creating/Persisting the city
-        City city = new City(2800, "Kongens Lyngby");
-        accountDetailDAO.create(city);
-
-        // Creating/Persisting the hobby
-        Hobby hobby1 = new Hobby("Volleyball", "wiki@test.dk", "General", Hobby.Type.INDOOR);
-        Hobby hobby2 = new Hobby("Fodbold", "wiki@test.dk", "General", Hobby.Type.OUTDOOR);
-
-        //em.persist(hobby1);
-        //em.persist(hobby2);
-
-        Account accountAhmad = new Account("Ahmad A");
-        accountAhmad.addHobby(hobby1);
-        accountAhmad.addHobby(hobby2);
-
-        AccountDetail accountDetailAhmad = new AccountDetail(123, LocalDate.of(1998, 3, 6), "Boulevard");
-        accountDetailAhmad.setCity(city);
-        accountAhmad.addAccountDetail(accountDetailAhmad);
-
-        em.getTransaction().begin();
-        em.persist(accountAhmad);
-        em.getTransaction().commit();
-
-        Account foundAccount = em.find(Account.class, 1);
-        System.out.println(foundAccount.getFullName());
-        System.out.println(foundAccount.getHobbies());
-
-        // NIKS PILLE
     }
 }

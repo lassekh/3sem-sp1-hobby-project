@@ -15,9 +15,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AccountDetailDAOTest {
 
@@ -131,5 +131,39 @@ class AccountDetailDAOTest {
         assertNotNull(actualAccountList);
         assertEquals(expectedPersonsSize, actualAccountList.size());
         assertEquals(expectedZipCode,actualAccountList.get(0).getAccountDetail().getZipcode());
+    }
+
+    @Test
+    @DisplayName("Get persons living on the same address.")
+    void getPersonsByAddress()
+    {
+        // Given
+        String expectedPersonName = "Ahmad A";
+        int expectedPerons = 1;
+
+        // When
+        String setAddress = "Boulevard";
+        List<Account> personsLivingOnAddress = accountDetailDAO.getPersonsByAddress(setAddress);
+
+        // Then
+        assertNotNull(setAddress);
+        assertEquals(expectedPersonName, personsLivingOnAddress.get(0).getFullName());
+        assertEquals(expectedPerons,personsLivingOnAddress.size());
+    }
+
+    @Test
+    @DisplayName("Get count of hobbies on giving person.")
+    void getCountOfHobbiesByAddress()
+    {
+        // Given
+        int expectedHobbies = 2;
+
+        // When
+        List<Account> accounts = accountDetailDAO.getPersonsByAddress("Boulevard");
+        Map<String, Integer> correctedList = accountDetailDAO.getCountOfHobbiesByAddress(accounts);
+
+        // Then
+        assertNotNull(correctedList);
+        assertEquals(expectedHobbies,correctedList.get("Ahmad A"));
     }
 }
