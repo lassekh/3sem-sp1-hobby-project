@@ -8,6 +8,7 @@ import entities.Account;
 import entities.AccountDetail;
 import entities.City;
 import entities.Hobby;
+import filewriter.FileWriter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.http.HttpEntity;
@@ -75,5 +76,11 @@ public class Main {
         List<Account> a = accountDetailDAO.getPersonsByAddress("Boulevard");
 
         System.out.println(accountDetailDAO.getCountOfHobbiesByAddress(a));
+
+
+        FileWriter fileWriter = new FileWriter();
+
+        fileWriter.storeNegative("Ahmad er blevet oprettet.");
+        fileWriter.storePositive("test");
     }
 }

@@ -2,6 +2,8 @@ package dao;
 
 import dto.AccAccDetHobbyDTO;
 import dto.AccountDTOYoussef;
+import exception.DatabaseException;
+import filewriter.FileWriter;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public class AccountDAO extends CRUDDao{
                     hobbies.add(dto.getHobby().getName());
                 }
             }
+            FileWriter.storePositive("information retrieved - By mobile Number - " + phoneNumber);
                 //instantierer en ny AccountDTOYoussef via data fra
             return new AccountDTOYoussef(
                     dtos.get(0).getAccount().getId(),
@@ -60,6 +63,9 @@ public class AccountDAO extends CRUDDao{
                     //da vores DTO tager en liste, konverteres settet til en liste.
                     new ArrayList<>(hobbies)
             );
+        } catch (RuntimeException e){
+            FileWriter.storeNegative(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 }
