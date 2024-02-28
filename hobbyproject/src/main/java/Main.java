@@ -42,7 +42,8 @@ public class Main {
         AccountDetailDAO aDDao = AccountDetailDAO.getInstance(emf);
         HobbyDAO hDao = HobbyDAO.getInstance(emf);
 
-        System.out.println(hDao.getAllHobbiesAndHowManyAreAssignedToEach());
+        hDao.getNumberOfPeopleWithGivenHobby("dddd");
+
 
 
     }

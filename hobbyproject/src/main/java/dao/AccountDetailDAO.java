@@ -57,7 +57,7 @@ public class AccountDetailDAO extends CRUDDao {
                     .build();
         } catch (NoResultException e) {
             FileWriter.storeNegative("User with id: " + id + " was not found");
-            return null;  // Eller kaste en brugerdefineret undtagelse, hvis det passer bedre til din anvendelse
+            return null;
         }
     }
 

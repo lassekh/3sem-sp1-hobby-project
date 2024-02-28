@@ -10,3 +10,6 @@ Found the following persons with interest in Fodbold: [Account(id=1, fullName=Ah
 Found the following persons with interest in Fodbold: java.util.stream.ReferencePipeline$3@30036a18: 2024/02/28 20:57:32
 Found the following persons with interest in Fodbold: [Ahmad A]: 2024/02/28 20:58:08
 Found the following persons with interest in Fodbold: [Ahmad A]: 2024/02/28 20:58:37
+Hobbies and number og persons assign{Volleyball=1, Fodbold=1}: 2024/02/28 21:22:38
+1user found assigned to hobby: Fodbold: 2024/02/28 21:32:38
+0 user found assigned to hobby: dddd: 2024/02/28 21:33:07
