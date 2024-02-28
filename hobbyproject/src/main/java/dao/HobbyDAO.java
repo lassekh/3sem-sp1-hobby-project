@@ -21,10 +21,10 @@ public class HobbyDAO extends CRUDDao {
         return instance;
     }
 
-    public List<Account> getAllAccountsWithHobby(Hobby hobby) {
+    public List<Account> getAllAccountsWithHobby(String hobby) {
         try (EntityManager em = emf.createEntityManager()) {
-            TypedQuery<Account> query = em.createQuery("select a from Account a join Hobby h where h.id = ?1", Account.class);
-            query.setParameter(1, hobby.getId());
+            TypedQuery<Account> query = em.createQuery("select a from Account a join a.hobbies h where h.name = ?1", Account.class);
+            query.setParameter(1, hobby);
             return query.getResultList();
         }
     }
