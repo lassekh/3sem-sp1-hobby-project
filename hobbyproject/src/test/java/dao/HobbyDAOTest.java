@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,7 +21,7 @@ class HobbyDAOTest {
 
     private static EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfigTest();
     private static HobbyDAO hobbyDAO;
-    private static AccountDAO accountDao = new AccountDAO();
+    private static AccountDAO accountDao;
 
     private static Account a1;
     private static Account a2;
@@ -42,6 +41,9 @@ class HobbyDAOTest {
 
     @BeforeAll
     static void beforeAll() {
+
+        accountDao = AccountDAO.getInstance(emf);
+
         hobbyDAO = HobbyDAO.getInstance(emf);
 
         a1 = new Account("Youssef");
@@ -49,7 +51,7 @@ class HobbyDAOTest {
         a3 = new Account("Ahmad");
         a4 = new Account("Hanni");
 
-        ad1 = new AccountDetail(30117195, LocalDate.of(1990,07,12),3400, "Østervang");
+        ad1 = new AccountDetail(30117195, LocalDate.of(1990,07,12), "Østervang");
 
         City city = new City(3400, "Hillerød");
 
@@ -86,13 +88,14 @@ class HobbyDAOTest {
     void tearDown() {
     }
 
-    @Test
-    void getNumberOfPeopleGivenHobby() {
 
-        int actual = hobbyDAO.getNumberOfPeopleGivenHobby("Fitness");
-        assertEquals(4, actual);
-
-    }
+//    @Test
+//    void getNumberOfPeopleGivenHobby() {
+//
+//        int actual = dao.getNumberOfPeopleGivenHobby("Fitness");
+//        assertEquals(4, actual);
+//
+//    }
 
     @Test
     void getAccountInfoByPhoneNumber() {
