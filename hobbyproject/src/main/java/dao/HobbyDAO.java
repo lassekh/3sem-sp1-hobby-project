@@ -20,6 +20,7 @@ public class HobbyDAO extends CRUDDao {
         }
         return instance;
     }
+
     public List<Account> getAllAccountsWithHobby(Hobby hobby) {
         try (EntityManager em = emf.createEntityManager()) {
             TypedQuery<Account> query = em.createQuery("select a from Account a join Hobby h where h.id = ?1", Account.class);
@@ -43,7 +44,7 @@ public class HobbyDAO extends CRUDDao {
 
     public int getNumberOfPeopleGivenHobby(String hobbyName){
         try(var em = emf.createEntityManager()){
-            TypedQuery<Long> query = em.createQuery("SELECT count(a) FROM Account a JOIN a.hobbySet h WHERE h.name = :hobbyName", Long.class);
+            TypedQuery<Long> query = em.createQuery("SELECT count(a) FROM Account a JOIN a.hobbies h WHERE h.name = :hobbyName", Long.class);
             query.setParameter("hobbyName", hobbyName);
             return query.getSingleResult().intValue();
         }

@@ -2,6 +2,7 @@ package dao;
 
 import dto.AccAccDetHobbyDTO;
 import dto.AccountDTOYoussef;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,6 +10,19 @@ import java.util.List;
 import java.util.Set;
 
 public class AccountDAO extends CRUDDao{
+
+    private static EntityManagerFactory emf;
+
+    private static AccountDAO instance;
+
+    public static AccountDAO getInstance(EntityManagerFactory _emf){
+        if(instance == null){
+            emf = _emf;
+            instance = new AccountDAO();
+        }
+        return instance;
+    }
+
 
     //[US-8] As a user I want to get all the information about
     //a person (address, hobbies etc.) given a phone number
@@ -21,8 +35,8 @@ public class AccountDAO extends CRUDDao{
             TypedQuery<AccAccDetHobbyDTO> query = em.createQuery(
                     "SELECT new dto.AccAccDetHobbyDTO(a, ad, h) FROM Account a " +
                             "JOIN a.accountDetail ad " +
-                            "LEFT JOIN a.hobbySet h " + //Left JOIN for at få ALLE account entiteterne retur. selvom en account ikke har en hobby tilknyttet
-                            "WHERE ad.mobile = :phoneNumber", AccAccDetHobbyDTO.class);
+                            "LEFT JOIN a.hobbies h " + //Left JOIN for at få ALLE account entiteterne retur. selvom en account ikke har en hobby tilknyttet
+                            "WHERE ad.privateMobile = :phoneNumber", AccAccDetHobbyDTO.class);
             query.setParameter("phoneNumber", phoneNumber);
 
             //Benytter resultlist da en person kan have flere hobbier. For hver hobby vil der være en account
