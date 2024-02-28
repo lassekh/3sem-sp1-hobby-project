@@ -29,10 +29,12 @@ class CityDAOTest {
 
         Account[] accounts = {new Account("Lasse"),new Account("Ahmad"),new Account("Hanni"),new Account("Youssef")};
         AccountDetail[] details = {
+
                 new AccountDetail(30117195, LocalDate.of(1990,7,12), "Østervang"),
                 new AccountDetail(40404040, LocalDate.of(1992,5,10), "Firskovvej"),
                 new AccountDetail(50505050, LocalDate.of(1993,2,11), "Lyngbyvej"),
                 new AccountDetail(30333330, LocalDate.of(1998,1,1), "Hovedvejen")
+
         };
         for(int i = 0; i < accounts.length; i++)
         {
