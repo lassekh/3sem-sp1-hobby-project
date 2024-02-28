@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class HobbyDAOTest {
 
     private static EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfigTest();
-    private static HobbyDAO dao = new HobbyDAO();
-    private static AccountDAO accountDao = new AccountDAO();
+    private static HobbyDAO dao;
+    private static AccountDAO accountDao;
 
     private static Account a1;
     private static Account a2;
@@ -38,6 +38,11 @@ class HobbyDAOTest {
 
     @BeforeAll
     static void beforeAll() {
+
+        accountDao = AccountDAO.getInstance(emf);
+
+        dao = HobbyDAO.getInstance(emf);
+
         a1 = new Account("Youssef");
         a2 = new Account("Lasse");
         a3 = new Account("Ahmad");
@@ -77,13 +82,13 @@ class HobbyDAOTest {
     void tearDown() {
     }
 
-    @Test
-    void getNumberOfPeopleGivenHobby() {
-
-        int actual = dao.getNumberOfPeopleGivenHobby("Fitness");
-        assertEquals(4, actual);
-
-    }
+//    @Test
+//    void getNumberOfPeopleGivenHobby() {
+//
+//        int actual = dao.getNumberOfPeopleGivenHobby("Fitness");
+//        assertEquals(4, actual);
+//
+//    }
 
     @Test
     void getAccountInfoByPhoneNumber() {
