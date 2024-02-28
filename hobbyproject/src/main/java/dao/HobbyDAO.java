@@ -2,6 +2,7 @@ package dao;
 
 import entities.Account;
 import entities.Hobby;
+import filewriter.FileWriter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
@@ -25,7 +26,17 @@ public class HobbyDAO extends CRUDDao {
         try (EntityManager em = emf.createEntityManager()) {
             TypedQuery<Account> query = em.createQuery("select a from Account a join a.hobbies h where h.name = ?1", Account.class);
             query.setParameter(1, hobby);
-            return query.getResultList();
+
+            List<Account> accounts = query.getResultList();
+
+            if(accounts.isEmpty()){
+                FileWriter.storeNegative("No persons available with interest in: " + hobby);
+                return List.of(); //returns an empty list - avoiding null
+            }
+
+            FileWriter.storePositive("Found the following persons with interest in "+ hobby + ": "+ accounts.stream().map(a -> a.getFullName()).collect(Collectors.toList()));
+
+            return accounts;
         }
     }
 

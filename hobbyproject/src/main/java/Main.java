@@ -4,6 +4,7 @@ import config.HibernateConfig;
 import dao.AccountDAO;
 import dao.AccountDetailDAO;
 import dao.CityDAO;
+import dao.HobbyDAO;
 import dto.CityDTO;
 import entities.Account;
 import entities.AccountDetail;
@@ -34,13 +35,14 @@ public class Main {
 
         emf = HibernateConfig.getEntityManagerFactoryConfig();
 
-//        AccountDAO dao = AccountDAO.getInstance(emf);
 //
 //        System.out.println(dao.getAccountInfoByPhoneNumber(2));
 
-        AccountDetailDAO dao = AccountDetailDAO.getInstance(emf);
+        AccountDAO aDao = AccountDAO.getInstance(emf);
+        AccountDetailDAO aDDao = AccountDetailDAO.getInstance(emf);
+        HobbyDAO hDao = HobbyDAO.getInstance(emf);
 
-        dao.getPersonsInASpecifikCityByZipcode(200);
+        System.out.println(hDao.getAllHobbiesAndHowManyAreAssignedToEach());
 
 
     }
