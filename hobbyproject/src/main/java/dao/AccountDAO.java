@@ -50,9 +50,11 @@ public class AccountDAO extends CRUDDao{
                     hobbies.add(dto.getHobby().getName());
                 }
             }
-            FileWriter.storePositive("information retrieved - By mobile Number - " + phoneNumber);
+
                 //instantierer en ny AccountDTOYoussef via data fra
-            return new AccountDTOYoussef(
+
+
+            AccountDTOYoussef dto = new AccountDTOYoussef(
                     dtos.get(0).getAccount().getId(),
                     dtos.get(0).getAccount().getFullName(),
                     dtos.get(0).getAccountDetail().getDateOfBirth(),
@@ -61,11 +63,14 @@ public class AccountDAO extends CRUDDao{
                     dtos.get(0).getAccountDetail().getCity() != null ? dtos.get(0).getAccountDetail().getCity().getName() : null,
                     dtos.get(0).getAccountDetail().getAddress(),
                     //da vores DTO tager en liste, konverteres settet til en liste.
-                    new ArrayList<>(hobbies)
-            );
-        } catch (RuntimeException e){
-            FileWriter.storeNegative(e.getMessage());
-            throw new RuntimeException(e.getMessage());
+                    new ArrayList<>(hobbies));
+
+            if(dto.getFullName() == null){
+                FileWriter.storeNegative("Phone number does not exist");
+                return dto;
+            }
+            FileWriter.storePositive("information retrieved - By mobile Number - " + phoneNumber);
+            return dto;
         }
     }
 }
