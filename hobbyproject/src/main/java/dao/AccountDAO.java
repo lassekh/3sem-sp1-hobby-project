@@ -32,8 +32,8 @@ public class AccountDAO extends CRUDDao{
             TypedQuery<AccAccDetHobbyDTO> query = em.createQuery(
                     "SELECT new dto.AccAccDetHobbyDTO(a, ad, h) FROM Account a " +
                             "JOIN a.accountDetail ad " +
-                            "LEFT JOIN a.hobbySet h " + //Left JOIN for at få ALLE account entiteterne retur. selvom en account ikke har en hobby tilknyttet
-                            "WHERE ad.mobile = :phoneNumber", AccAccDetHobbyDTO.class);
+                            "LEFT JOIN a.hobbies h " + //Left JOIN for at få ALLE account entiteterne retur. selvom en account ikke har en hobby tilknyttet
+                            "WHERE ad.privateMobile = :phoneNumber", AccAccDetHobbyDTO.class);
             query.setParameter("phoneNumber", phoneNumber);
 
             //Benytter resultlist da en person kan have flere hobbier. For hver hobby vil der være en account
