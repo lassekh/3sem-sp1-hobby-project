@@ -21,6 +21,19 @@ public class AccountDAO extends CRUDDao{
         return instance;
     }
 
+    private static EntityManagerFactory emf;
+
+    private static AccountDAO instance;
+
+    public static AccountDAO getInstance(EntityManagerFactory _emf){
+        if(instance == null){
+            emf = _emf;
+            instance = new AccountDAO();
+        }
+        return instance;
+    }
+
+
     //[US-8] As a user I want to get all the information about
     //a person (address, hobbies etc.) given a phone number
 
