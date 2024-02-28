@@ -1,10 +1,8 @@
 package dto;
 
 import entities.Hobby;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@Builder
 @AllArgsConstructor
 public class AccountDTO {
     private int id;

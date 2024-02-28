@@ -34,9 +34,14 @@ public class Main {
 
         emf = HibernateConfig.getEntityManagerFactoryConfig();
 
-        AccountDAO dao = AccountDAO.getInstance(emf);
+//        AccountDAO dao = AccountDAO.getInstance(emf);
+//
+//        System.out.println(dao.getAccountInfoByPhoneNumber(2));
 
-        System.out.println(dao.getAccountInfoByPhoneNumber(2));
+        AccountDetailDAO dao = AccountDetailDAO.getInstance(emf);
+
+        dao.getPersonsInASpecifikCityByZipcode(200);
+
 
     }
 }

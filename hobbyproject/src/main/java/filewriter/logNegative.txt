@@ -10,3 +10,9 @@ Ahmad er blevet oprettet.: 2024/02/28 14:37:25
 Cannot invoke "jakarta.persistence.EntityManagerFactory.createEntityManager()" because "dao.AccountDAO.emf" is null: 2024/02/28 15:00:10
 Phone number does not exist: 2024/02/28 15:18:41
 Phone number does not exist: 2024/02/28 15:19:01
+User with id: 100 was not found: 2024/02/28 20:06:43
+No phone numbers found for person: ssss: 2024/02/28 20:28:38
+Error retrieving phone numbers for person: ssss: 2024/02/28 20:29:25
+No phone numbers found for person: Ahmad: 2024/02/28 20:31:03
+No phone numbers found for person: Ahmed: 2024/02/28 20:31:25
+No persons available living i zipcode: 200: 2024/02/28 20:38:49
