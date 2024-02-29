@@ -27,6 +27,7 @@ public class Account {
     // a account detail can not exist without account and viceversa thats why persist.all
     private AccountDetail accountDetail;
 
+    //unidirectional
     @ManyToMany( cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Hobby> hobbies = new HashSet<>();
 

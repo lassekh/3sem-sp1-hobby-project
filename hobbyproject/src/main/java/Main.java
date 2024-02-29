@@ -1,13 +1,16 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import config.HibernateConfig;
+import dao.AccountDAO;
 import dao.AccountDetailDAO;
 import dao.CityDAO;
+import dao.HobbyDAO;
 import dto.CityDTO;
 import entities.Account;
 import entities.AccountDetail;
 import entities.City;
 import entities.Hobby;
+import filewriter.FileWriter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.http.HttpEntity;
@@ -29,51 +32,19 @@ public class Main {
     static EntityManagerFactory emf;
 
     public static void main(String[] args) throws IOException {
-        CityDAO cityDAO = new CityDAO();
-        Arrays.stream(cityDAO.getCityZip("https://api.dataforsyningen.dk/postnumre"))
-                .collect(Collectors.toList())
-                .forEach(System.out::println);
-
-
-//        // NIKS PILLE
-//        emf = HibernateConfig.getEntityManagerFactoryConfig();
-//        accountDetailDAO = AccountDetailDAO.getInstance(emf);
-//
-//        EntityManager em = emf.createEntityManager();
-//
-//        // Creating/Persisting the city
-//        City city = new City(2800, "Kongens Lyngby");
-//        accountDetailDAO.create(city);
-//
-//        // Creating/Persisting the hobby
-//        Hobby hobby1 = new Hobby("Volleyball", "wiki@test.dk", "General", Hobby.Type.INDOOR);
-//        Hobby hobby2 = new Hobby("Fodbold", "wiki@test.dk", "General", Hobby.Type.OUTDOOR);
-//
-//        //em.persist(hobby1);
-//        //em.persist(hobby2);
-//
-//        Account accountAhmad = new Account("Ahmad A");
-//        accountAhmad.addHobby(hobby1);
-//        accountAhmad.addHobby(hobby2);
-//
-//        AccountDetail accountDetailAhmad = new AccountDetail(123, LocalDate.of(1998, 3, 6), "Boulevard");
-//        accountDetailAhmad.setCity(city);
-//        accountAhmad.addAccountDetail(accountDetailAhmad);
-//
-//        em.getTransaction().begin();
-//        em.persist(accountAhmad);
-//        em.getTransaction().commit();
-//
-//        Account foundAccount = em.find(Account.class, 1);
-//        System.out.println(foundAccount.getFullName());
-//        System.out.println(foundAccount.getHobbies());
-//
-//         //NIKS PILLE - slut
 
         emf = HibernateConfig.getEntityManagerFactoryConfig();
-        accountDetailDAO = AccountDetailDAO.getInstance(emf);
-        List<Account> a = accountDetailDAO.getPersonsByAddress("Boulevard");
 
-        System.out.println(accountDetailDAO.getCountOfHobbiesByAddress(a));
+//
+//        System.out.println(dao.getAccountInfoByPhoneNumber(2));
+
+        AccountDAO aDao = AccountDAO.getInstance(emf);
+        AccountDetailDAO aDDao = AccountDetailDAO.getInstance(emf);
+        HobbyDAO hDao = HobbyDAO.getInstance(emf);
+
+        hDao.getNumberOfPeopleWithGivenHobby("dddd");
+
+
+
     }
 }

@@ -30,8 +30,8 @@ class AccountDAOTest
         // City persisting
         City city = new City(4700, "Næstved");
         accountDAO.create(city);
+
         Hobby fodbold = new Hobby("Fodbold", "www.wiki-link.dk", "Sport", Hobby.Type.OUTDOOR);
-        //accountDAO.create(fodbold);
         Account account = new Account("Hanni");
         account.addHobby(fodbold);
 
@@ -72,7 +72,6 @@ class AccountDAOTest
         assertEquals(expectedNumber , accountInfo.getMobile());
         assertEquals(expectedZipcode , accountInfo.getZipcode());
         assertEquals(expectedAddress, accountInfo.getAddress());
-        //assertEquals(expectedHobby, accountInfo.getHobbies());
         assertTrue(accountInfo.getHobbies().contains(expectedHobby));
     }
 }

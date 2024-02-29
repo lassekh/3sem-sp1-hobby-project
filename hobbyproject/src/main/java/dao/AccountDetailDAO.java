@@ -3,10 +3,8 @@ package dao;
 import dto.AccountDTO;
 import entities.Account;
 import entities.City;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+import filewriter.FileWriter;
+import jakarta.persistence.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -36,13 +34,30 @@ public class AccountDetailDAO extends CRUDDao {
                                     "WHERE a.id = :id", Account.class)
                     .setParameter("id", id)
                     .getSingleResult();
+
             // Udtræk byinformation
             City cityFound = em.find(City.class, accountFound.getAccountDetail().getZipcode());
 
+
+            FileWriter.storePositive("Found user - id: " + id + ", name: "+accountFound.getFullName());
+
             // Returnerer værdierne i en DTO (Data Transfer Object)
-            return new AccountDTO(accountFound.getId(), accountFound.getFullName(), accountFound.getAccountDetail().getDateOfBirth(),
-                    accountFound.getAccountDetail().getPrivateMobile(), accountFound.getAccountDetail().getWorkMobile(), accountFound.getAccountDetail().getUpdatedAt(), accountFound.getAccountDetail().getZipcode(),
-                    cityFound.getName(), accountFound.getAccountDetail().getAddress(), accountFound.getHobbies());
+
+            return AccountDTO.builder()
+                    .id(accountFound.getId())
+                    .fullName(accountFound.getFullName())
+                    .dateOfBirth(accountFound.getAccountDetail().getDateOfBirth())
+                    .privateMobile(accountFound.getAccountDetail().getPrivateMobile())
+                    .workMobile(accountFound.getAccountDetail().getWorkMobile())
+                    .updatedAt(accountFound.getAccountDetail().getUpdatedAt())
+                    .zipcode(accountFound.getAccountDetail().getZipcode())
+                    .cityName(cityFound.getName())
+                    .address(accountFound.getAccountDetail().getAddress())
+                    .hobbies(accountFound.getHobbies())
+                    .build();
+        } catch (NoResultException e) {
+            FileWriter.storeNegative("User with id: " + id + " was not found");
+            return null;
         }
     }
 
@@ -59,6 +74,13 @@ public class AccountDetailDAO extends CRUDDao {
             // Udfør forespørgslen og få resultatet som en liste af Object-arrays
             List<Object[]> resultList = query.getResultList();
 
+            if (resultList.isEmpty()) {
+                FileWriter.storeNegative("No phone numbers found for person: " + name);
+                return List.of(); // Returner en tom liste for at undgå null
+            }
+
+            FileWriter.storePositive("Phone numbers retrieved for person: " + name);
+
             // Konverter resultatlisten til en strøm og udfør operationer for at mappe og filtrere telefonnumre
             return resultList.stream()
                     .flatMap(Arrays::stream)          // Fladt ud arrays til en strøm af objekter
@@ -66,6 +88,9 @@ public class AccountDetailDAO extends CRUDDao {
                     .map(Object::toString)            // Konverter objekter til strenge
                     .map(Integer::parseInt)           // Konverter strenge til heltal
                     .collect(Collectors.toList());    // Indsaml de konverterede heltal til en liste og returnér den
+        }catch (Exception e) {
+            FileWriter.storeNegative("Error retrieving phone numbers for person: " + name + "system error description: " + e.getMessage());
+            throw e; // Kast en ny undtagelse for at håndtere fejlen yderligere oppe i kaldstakken
         }
     }
 
@@ -82,8 +107,15 @@ public class AccountDetailDAO extends CRUDDao {
 
             query.setParameter("zipcode", zipcode);
 
+            List<Account> accounts = query.getResultList();
+
+            if(accounts.isEmpty()){
+                FileWriter.storeNegative("No persons available living i zipcode: " + zipcode);
+                return List.of(); //returns an empty list - avoiding null
+            }
+            FileWriter.storePositive("Found the following persons: " + accounts);
             // Udfør forespørgslen og få resultatet som en liste af Account-objekter
-            return query.getResultList();
+            return accounts;
         }
     }
 
@@ -99,8 +131,15 @@ public class AccountDetailDAO extends CRUDDao {
 
             query.setParameter("city_name", cityName);
 
+            List<Account> accounts = query.getResultList();
+
+            if(accounts.isEmpty()){
+                FileWriter.storeNegative("No persons available living i city: " + cityName);
+                return List.of(); //returns an empty list - avoiding null
+            }
+            FileWriter.storePositive("Found the following persons: " + accounts + " living in the city: " + cityName);
             // Udfør forespørgslen og få resultatet som en liste af Account-objekter
-            return query.getResultList();
+            return accounts;
         }
     }
 
@@ -111,7 +150,17 @@ public class AccountDetailDAO extends CRUDDao {
         {
             TypedQuery<Account> query = em.createQuery("SELECT a FROM Account a WHERE a.accountDetail.address = :address", Account.class);
             query.setParameter("address", address);
-            return query.getResultList();
+
+            List<Account> accounts = query.getResultList();
+
+            if(accounts.isEmpty()){
+                FileWriter.storeNegative("No persons available living on address: " + address);
+                return List.of(); //returns an empty list - avoiding null
+            }
+            FileWriter.storePositive("Found the following persons: " + accounts);
+            // Udfør forespørgslen og få resultatet som en liste af Account-objekter
+            return accounts;
+
         }
     }
 

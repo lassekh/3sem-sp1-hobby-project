@@ -2,6 +2,7 @@ package dao;
 
 import dto.AccAccDetHobbyDTO;
 import dto.AccountDTOYoussef;
+import filewriter.FileWriter;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
@@ -37,9 +38,12 @@ public class AccountDAO extends CRUDDao{
                             "WHERE ad.privateMobile = :phoneNumber", AccAccDetHobbyDTO.class);
             query.setParameter("phoneNumber", phoneNumber);
 
-            //Benytter resultlist da en person kan have flere hobbier. For hver hobby vil der være en account
+            //Benytter result list da en person kan have flere hobbyer. For hver hobby vil der være en account
             List<AccAccDetHobbyDTO> dtos = query.getResultList();
-            if (dtos.isEmpty()) return null;
+            if (dtos.isEmpty()){
+                FileWriter.storeNegative("Phone number does not exist");
+                return null;
+            }
 
             //Da en person kan have flere hobbier gennemgår vi listen og sætter unikke hobbier i et Set.
             Set<String> hobbies = new HashSet<>();
@@ -48,7 +52,9 @@ public class AccountDAO extends CRUDDao{
                     hobbies.add(dto.getHobby().getName());
                 }
             }
+
                 //instantierer en ny AccountDTOYoussef via data fra
+            FileWriter.storePositive("information retrieved - By mobile Number - " + phoneNumber);
             return new AccountDTOYoussef(
                     dtos.get(0).getAccount().getId(),
                     dtos.get(0).getAccount().getFullName(),
@@ -58,8 +64,7 @@ public class AccountDAO extends CRUDDao{
                     dtos.get(0).getAccountDetail().getCity() != null ? dtos.get(0).getAccountDetail().getCity().getName() : null,
                     dtos.get(0).getAccountDetail().getAddress(),
                     //da vores DTO tager en liste, konverteres settet til en liste.
-                    new ArrayList<>(hobbies)
-            );
+                    new ArrayList<>(hobbies));
         }
     }
 }

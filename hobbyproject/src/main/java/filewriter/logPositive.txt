@@ -1,0 +1,15 @@
+test
+test: 2024-02-28T14:32:01.617432
+test: 2024/02/28 14:35:25
+test: 2024/02/28 14:37:03
+test: 2024/02/28 14:37:25
+User with id: 1 has been found: 2024/02/28 20:16:58
+Phone numbers retrieved for person: Ahmad A: 2024/02/28 20:31:46
+Found the following persons: [Account(id=1, fullName=Ahmad A, accountDetail=entities.AccountDetail@5c70d7f0, hobbies=[Hobby(id=2, name=Volleyball, wikiLink=wiki@test.dk, category=General, type=INDOOR), Hobby(id=1, name=Fodbold, wikiLink=wiki@test.dk, category=General, type=OUTDOOR)])]: 2024/02/28 20:38:40
+Found the following persons with interest in Fodbold: [Account(id=1, fullName=Ahmad A, accountDetail=entities.AccountDetail@30159886, hobbies=[Hobby(id=2, name=Volleyball, wikiLink=wiki@test.dk, category=General, type=INDOOR), Hobby(id=1, name=Fodbold, wikiLink=wiki@test.dk, category=General, type=OUTDOOR)])]: 2024/02/28 20:54:53
+Found the following persons with interest in Fodbold: java.util.stream.ReferencePipeline$3@30036a18: 2024/02/28 20:57:32
+Found the following persons with interest in Fodbold: [Ahmad A]: 2024/02/28 20:58:08
+Found the following persons with interest in Fodbold: [Ahmad A]: 2024/02/28 20:58:37
+Hobbies and number og persons assign{Volleyball=1, Fodbold=1}: 2024/02/28 21:22:38
+1user found assigned to hobby: Fodbold: 2024/02/28 21:32:38
+0 user found assigned to hobby: dddd: 2024/02/28 21:33:07
