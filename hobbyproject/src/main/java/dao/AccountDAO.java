@@ -2,7 +2,6 @@ package dao;
 
 import dto.AccAccDetHobbyDTO;
 import dto.AccountDTOYoussef;
-import exception.DatabaseException;
 import filewriter.FileWriter;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
