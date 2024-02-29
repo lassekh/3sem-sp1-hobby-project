@@ -77,12 +77,12 @@ class CRUDDaoTest {
     @DisplayName("Deleting existing account.")
     void delete() {
         // Given
-
+        int deletedAccounts = 1;
 
         // When
         accountDAO.delete(Account.class,1);
 
         // Then
-
+        assertEquals(deletedAccounts,1);
     }
 }
